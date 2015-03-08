@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!-- ===============================================================================================================
+
+     =============================================================================================================== -->
+
+<!-- ===============================================================================================================
+        Continuous Integration Template for Phing.
+
+        Change your settings by adding/editing build/settings/common.settings.xml or change the file location of
+        the `<xmlproperty>` task.
+     =============================================================================================================== -->
+<project name="ci.metrics" description="Continuous Integration Lib" default="execute all" basedir=".">
+
+    <!-- ================================
+            Define internal properties
+         ================================ -->
+    <property name="common.settings.xml" value="settings/common.xml"/>
+
+    <!-- ===================
+            Load settings   
+         =================== -->
+    <if>
+        <not>
+            <available property="common.settings.xml.exists" file="${common.settings.xml}"/>
+        </not>
+        <then>
+            <dirname property="common.settings.xml.dirname" file="${common.settings.xml}"/>
+            <mkdir dir="${common.settings.xml.dirname}"/>
+            <touch file="${common.settings.xml}"/>
+        </then>
+    </if>
+    <xmlproperty file="${common.settings.xml}"/>
+
+    <!-- =========================
+            Import dependencies
+         ========================= -->
+    <import file="test/build.xml" description="Import test suite build."/>
+    <import file="docs/api/build.xml" description="Import api docs generation build."/>
+
+    <!-- =================
+            PatternSets
+         ================= -->
+    <patternset id="common.source.file.patterns">
+        <include name="classes/**"/>
+    </patternset>
+    <patternset id="common.test.file.patterns">
+        <include name="test/**"/>
+    </patternset>
+
+    <!-- ==============
+            FileSets
+         ============== -->
+    <fileset id="common.source.files" dir=".">
+        <patternset refid="common.source.file.patterns"/>
+    </fileset>
+    <fileset id="common.test.files" dir=".">
+        <patternset refid="common.test.file.patterns"/>
+    </fileset>
+
+    <!-- ==========
+            Init   
+         ========== -->
+    <target name="Init" hidden="true">
+        <if>
+            <equals arg1="${common.environment}" arg2="production"/>
+            <then>
+                <composer command="install">
+                    <arg value="--no-dev"/>
+                </composer>
+            </then>
+            <else>
+                <composer command="update"/>
+            </else>
+        </if>
+    </target>
+
+    <!-- =====================
+            PHP_CodeSniffer
+         ===================== -->
+    <target name="Code Sniffer" description="Executes PHP_CodeSniffer.">
+        <phpcodesniffer>
+            <fileset refid="common.source.files"/>
+        </phpcodesniffer>
+    </target>
+
+    <!-- ============
+            PHPCPD
+         ============ -->
+    <target name="Copy/Paste Detector" description="Executes PHPCPD.">
+        <phpcpd>
+            <fileset refid="common.source.files"/>
+        </phpcpd>
+    </target>
+
+    <!-- =============
+            PDepend
+         ============= -->
+    <target name="PDepend" description="Executes PDepend.">
+        <phpdepend>
+            <fileset refid="common.source.files"/>
+        </phpdepend>
+    </target>
+
+    <!-- ============
+            PHPLoc
+         ============ -->
+    <target name="PHPLoc" description="Executes PHPLoc.">
+        <phploc>
+            <fileset refid="common.source.files"/>
+        </phploc>
+    </target>
+
+    <!-- ===========
+            PHPMD
+         =========== -->
+    <target name="Mess Detector" description="Executes PHPMD.">
+        <phpmd>
+            <fileset refid="common.source.files"/>
+        </phpmd>
+    </target>
+
+    <!-- ==============
+            Manifest
+         ============== -->
+    <target name="Manifest" description="Generates a manifestfile.">
+        <manifest file="MANIFEST" checksum="sha1">
+            <fileset refid="common.source.files"/>
+        </manifest>
+    </target>
+
+    <!-- =================
+            Execute all
+         ================= -->
+    <target name="execute all" depends="Init" description="Executes all analysis in parallel.">
+        <parallel>
+            <phingcall target="Code Sniffer"/>
+            <phingcall target="Copy/Paste Detector"/>
+            <phingcall target="PDepend"/>
+            <phingcall target="PHPLoc"/>
+            <phingcall target="Mess Detector"/>
+            <phingcall target="Manifest"/>
+        </parallel>
+    </target>
+
+</project>
