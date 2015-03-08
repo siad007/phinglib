@@ -1,0 +1,18 @@
+{
+  "name": "siad007/phinglib",
+  "description": "Build file templates used with phing.",
+  "keywords": [
+    "library",
+    "build",
+    "tool",
+    "task",
+    "phing"
+  ],
+  "authors": [
+    {
+      "name": "Siad Ardroumli",
+      "email": "siad.ardroumli@gmail.com"
+    }
+  ]
+}
+
