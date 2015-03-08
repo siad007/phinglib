@@ -13,6 +13,8 @@
       "name": "Siad Ardroumli",
       "email": "siad.ardroumli@gmail.com"
     }
-  ]
+  ],
+  "require-dev": {
+    "phing/phing": "2.*"
+  }
 }
-

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<project name="document api generator" default="main" basedir=".">
+    <target name="main">
+
+    </target>
+</project>

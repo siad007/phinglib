@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<project name="master phinglib buildfile" default="main" basedir=".">
+    <target name="main">
+        <phing buildfile="components/ci/metrics.xml" description="import metrics" inheritAll="false"/>
+    </target>
+</project>

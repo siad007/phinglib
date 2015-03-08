@@ -9,7 +9,7 @@
         Change your settings by adding/editing build/settings/common.xml or change the file location of
         the `<xmlproperty>` task.
      =============================================================================================================== -->
-<project name="ci.metrics" description="Continuous Integration Lib" default="execute all" basedir="../../../../../../phinglib">
+<project name="ci.metrics" description="Continuous Integration Lib" default="execute all" basedir=".">
 
     <!-- ================================
             Define internal properties
@@ -34,7 +34,7 @@
     <!-- =========================
             Import dependencies
          ========================= -->
-    <import file="test/build.xml" description="Import test suite build."/>
+    <import file="components/tests/units/build.xml" description="Import test suite build."/>
     <import file="docs/api/build.xml" description="Import api docs generation build."/>
 
     <!-- =================
