@@ -2,6 +2,7 @@
 
 <project name="master phinglib buildfile" default="help" basedir=".">
     <import file="components/ci/metrics.xml"/>
+    <import file="components/tests/unittest.xml"/>
     <target name="help" description="print help page">
         <loadfile property="help" srcFile="README.md"/>
         <echo msg="${help}"/>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!-- ===============================================================================================================
+
+     =============================================================================================================== -->
+
+<!-- ===============================================================================================================
+        PHPUnit Template for Phing.
+
+        Change your settings by adding/editing build/settings/test.xml or change the file location of
+        the `<xmlproperty>` task.
+     =============================================================================================================== -->
+<project name="tests.units" description="unit test components" default="main" basedir="units">
+
+    <!-- ================================
+            Define internal properties
+         ================================ -->
+    <property name="test.settings.xml" value="settings/test.xml"/>
+
+    <!-- ===================
+            Load settings
+         =================== -->
+    <if>
+        <not>
+            <available property="test.settings.xml.exists" file="${test.settings.xml}"/>
+        </not>
+        <then>
+            <dirname property="test.settings.xml.dirname" file="${test.settings.xml}"/>
+            <mkdir dir="${test.settings.xml.dirname}"/>
+            <touch file="${test.settings.xml}"/>
+        </then>
+    </if>
+    <xmlproperty file="${test.settings.xml}"/>
+
+    <target name="main">
+        <echo msg="run unit tests"/>
+    </target>
+
+</project>
