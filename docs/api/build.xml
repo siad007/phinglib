@@ -2,6 +2,6 @@
 
 <project name="document api generator" default="main" basedir=".">
     <target name="main">
-
+        <echo msg="document api generator"/>
     </target>
 </project>

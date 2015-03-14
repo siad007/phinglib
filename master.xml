@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
-<project name="master phinglib buildfile" default="main" basedir=".">
-    <target name="main">
-        <phing buildfile="components/ci/metrics.xml" description="import metrics" inheritAll="false"/>
+<project name="master phinglib buildfile" default="help" basedir=".">
+    <import file="components/ci/metrics.xml"/>
+    <target name="help" description="print help page">
+        <loadfile property="help" srcFile="README.md"/>
+        <echo msg="${help}"/>
     </target>
 </project>

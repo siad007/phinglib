@@ -9,7 +9,7 @@
 <project name="tests.units" description="unit test components" default="main" basedir=".">
 
     <target name="main">
-
+        <echo msg="run unit tests"/>
     </target>
 
 </project>
