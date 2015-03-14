@@ -34,7 +34,7 @@
     <!-- =========================
             Import dependencies
          ========================= -->
-    <import file="components/tests/units/build.xml" description="Import test suite build."/>
+    <import file="components/tests/unittest.xml" description="Import test suite build."/>
     <import file="docs/api/build.xml" description="Import api docs generation build."/>
 
     <!-- =================
